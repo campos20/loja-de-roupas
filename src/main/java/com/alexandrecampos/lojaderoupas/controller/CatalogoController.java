@@ -29,7 +29,7 @@ public class CatalogoController extends HttpServlet {
 		
 		// Envia o atributo titulo para a pagina jsp
 		String titulo = "Catálogo de Produtos";
-		request.setAttribute("titlo", titulo);
+		request.setAttribute("titulo", titulo);
 		
 		request.getRequestDispatcher("/catalogo.jsp").forward(request, response);
 		// Envia a pagina jsp na requisicao

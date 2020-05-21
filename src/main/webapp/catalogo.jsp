@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 
@@ -21,8 +22,25 @@
 							<h3>Catálogo</h3>
 						</div>
 					</div>
-					<h4>${ titulo }</h4>
-					<p>Produtos a serem exibidos</p>
+
+					<c:forEach items="${ roupas }" var="roupa">
+						<div>
+							<div class="card-header">
+								<h5>${ roupa.nome }</h5>
+							</div>
+
+							<div class="card-body">
+								<div class="card-title">
+
+									<fmt:formatNumber value="${roupa.preco}" type="currency"
+										currencySymbol="R$" />
+								</div>
+								<button class="btn btn-primary">Adicionar</button>
+
+							</div>
+
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 

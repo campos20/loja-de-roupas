@@ -23,24 +23,44 @@
 						</div>
 					</div>
 
-					<c:forEach items="${ roupas }" var="roupa">
-						<div>
-							<div class="card-header">
-								<h5>${ roupa.nome }</h5>
-							</div>
+					<div class="row">
+						<div class="col-6">
+							<c:forEach items="${ roupas }" var="roupa">
+								<div class="card">
+									<div class="card-header">
+										<h5>${ roupa.nome }</h5>
+									</div>
 
-							<div class="card-body">
-								<div class="card-title">
+									<div class="card-body">
 
-									<fmt:formatNumber value="${roupa.preco}" type="currency"
-										currencySymbol="R$" />
+										<img class="card-img"
+											src="assets/img/catalogo/${ roupa.nomeImagem }">
+
+										<div class="card-title text-center mt-4">
+											<div class="badge badge-dark badge-pill">
+												<h5>
+													<fmt:formatNumber value="${ roupa.preco }" type="currency"
+														currencySymbol="R$" />
+												</h5>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="card-footer text-center">
+										<div class="btn-group">
+											<button class="btn btn-primary">Adicionar</button>
+											<a class="btn btn-info" href="#">Detalhes</a>
+										</div>
+									</div>
+
+
+
 								</div>
-								<button class="btn btn-primary">Adicionar</button>
-
-							</div>
-
+							</c:forEach>
 						</div>
-					</c:forEach>
+					</div>
+
 				</div>
 			</div>
 

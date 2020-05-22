@@ -35,9 +35,11 @@ public class CatalogoController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
+		String codigoCategoria = request.getParameter("categoria");
+
 		// Envia as roupas do catalogo para o front
-		request.setAttribute("roupas", catalogoBean.getRoupas());
+		request.setAttribute("roupas", catalogoBean.getRoupasFiltradas(codigoCategoria));
 
 		// Envia a pagina jsp na requisicao
 		request.getRequestDispatcher("/catalogo.jsp").forward(request, response);

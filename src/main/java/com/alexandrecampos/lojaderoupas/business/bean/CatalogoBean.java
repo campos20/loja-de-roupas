@@ -42,5 +42,42 @@ public class CatalogoBean {
 	public void setRoupas(List<RoupaBean> roupas) {
 		this.roupas = roupas;
 	}
+	
+	// Retorna roupas filtradas de acordo com um codigo informado pelo navegador
+	public List<RoupaBean> getRoupasFiltradas(String codigoCategoria){
+		
+		// Pessoa ainda nao escolheu o filtro
+		if (codigoCategoria == null) {
+			return roupas;
+		}
+		
+		// Transforma, ex, String "0" em inteiro 0
+		int codigo = Integer.parseInt(codigoCategoria);
+
+		List<RoupaBean> roupasFiltradas = new ArrayList<>();
+		
+		// 0 Roupa masculina
+		// 1 Roupa feminina
+		// 2 Roupa infantil
+		
+		for (RoupaBean roupa : roupas) {
+			if (codigo == 0) { // Pessoa escolheu roupa masculina
+				if ("Roupa Masculina".equals(roupa.getCategoria())) {
+					roupasFiltradas.add(roupa);
+				}
+			} else if (codigo == 1) {
+				if ("Roupa Feminina".equals(roupa.getCategoria())) {
+					roupasFiltradas.add(roupa);
+				}
+			} else if (codigo == 2) {
+				if ("Roupa Infantil".equals(roupa.getCategoria())) {
+					roupasFiltradas.add(roupa);
+				}
+			}
+		}
+		
+		return roupasFiltradas;
+		
+	}
 
 }

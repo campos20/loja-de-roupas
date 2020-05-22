@@ -3,28 +3,26 @@ package com.alexandrecampos.lojaderoupas.business.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alexandrecampos.lojaderoupas.business.enums.CategoriaEnum;
+
 public class CatalogoBean {
-	
-	private final String ROUPA_MASCULINA = "Roupa Masculina";
-	private final String ROUPA_FEMININA = "Roupa Feminina";
-	private final String ROUPA_INFANTIL = "Roupa Infantil";
 
 	private List<RoupaBean> roupas;
 
 	public CatalogoBean() {
 		// Inicia a lista de roupas com algumas roupas
 		roupas = new ArrayList<>();
-		roupas.add(novaRoupa("Camisa", ROUPA_MASCULINA, 49.9f, "camisa.jpg"));
-		roupas.add(novaRoupa("Calça", ROUPA_MASCULINA, 80f, "calca.jpg"));
-		roupas.add(novaRoupa("Regata", ROUPA_FEMININA, 15f, "regata.jpg"));
-		roupas.add(novaRoupa("Vestido", ROUPA_FEMININA, 120f, "vestido.jpg"));
-		roupas.add(novaRoupa("Macacão", ROUPA_FEMININA, 70.99f, "macacao.jpg"));
-		roupas.add(novaRoupa("Roupa de Grávida", ROUPA_FEMININA, 80f, "roupa-de-gravida.jpg"));
-		roupas.add(novaRoupa("Roupa de Verão", ROUPA_FEMININA, 45.99f, "roupa-de-verao.jpg"));
+		roupas.add(novaRoupa("Camisa", CategoriaEnum.ROUPA_MASCULINA, 49.9f, "camisa.jpg"));
+		roupas.add(novaRoupa("Calça", CategoriaEnum.ROUPA_MASCULINA, 80f, "calca.jpg"));
+		roupas.add(novaRoupa("Regata", CategoriaEnum.ROUPA_FEMININA, 15f, "regata.jpg"));
+		roupas.add(novaRoupa("Vestido", CategoriaEnum.ROUPA_FEMININA, 120f, "vestido.jpg"));
+		roupas.add(novaRoupa("Macacão", CategoriaEnum.ROUPA_FEMININA, 70.99f, "macacao.jpg"));
+		roupas.add(novaRoupa("Roupa de Grávida", CategoriaEnum.ROUPA_FEMININA, 80f, "roupa-de-gravida.jpg"));
+		roupas.add(novaRoupa("Roupa de Verão", CategoriaEnum.ROUPA_FEMININA, 45.99f, "roupa-de-verao.jpg"));
 	}
 
 	// Funcao auxiliar para criar novas roupas
-	private RoupaBean novaRoupa(String nome, String categoria, Float preco, String nomeImagem) {
+	private RoupaBean novaRoupa(String nome, CategoriaEnum categoriaEnum, Float preco, String nomeImagem) {
 
 		// Calcula o codigo de acordo com o tamanho da lista de roupas
 		Integer codigo = roupas.size();
@@ -32,7 +30,8 @@ public class CatalogoBean {
 		RoupaBean roupaBean = new RoupaBean();
 		roupaBean.setCodigo(codigo);
 		roupaBean.setNome(nome);
-		roupaBean.setCategoria(categoria);
+		roupaBean.setCodigoCategoria(categoriaEnum.getCodigo());
+		roupaBean.setCategoria(categoriaEnum.getNome());
 		roupaBean.setPreco(preco);
 		roupaBean.setNomeImagem(nomeImagem);
 
@@ -46,42 +45,35 @@ public class CatalogoBean {
 	public void setRoupas(List<RoupaBean> roupas) {
 		this.roupas = roupas;
 	}
-	
+
 	// Retorna roupas filtradas de acordo com um codigo informado pelo navegador
-	public List<RoupaBean> getRoupasFiltradas(String codigoCategoria){
-		
+	public List<RoupaBean> getRoupasFiltradas(String[] codigosCategoria) {
+
 		// Pessoa ainda nao escolheu o filtro
-		if (codigoCategoria == null) {
+		if (codigosCategoria == null) {
 			return roupas;
 		}
-		
-		// Transforma, ex, String "0" em inteiro 0
-		int codigo = Integer.parseInt(codigoCategoria);
 
 		List<RoupaBean> roupasFiltradas = new ArrayList<>();
-		
-		// 0 Roupa masculina
-		// 1 Roupa feminina
-		// 2 Roupa infantil
-		
+
+		// Cria uma lista vazia de inteirs
+		List<Integer> codigos = new ArrayList<>();
+
+		// Percorre os codigos informados pelo usuario, converte para inteiro e adiciona
+		// na lista de codigos
+		for (String codigoCategoria : codigosCategoria) {
+			codigos.add(Integer.parseInt(codigoCategoria));
+		}
+
+		// Compara o codigo da roupa com o codigo que veio na requisicao
 		for (RoupaBean roupa : roupas) {
-			if (codigo == 0) { // Pessoa escolheu roupa masculina
-				if (ROUPA_MASCULINA.equals(roupa.getCategoria())) {
-					roupasFiltradas.add(roupa);
-				}
-			} else if (codigo == 1) {
-				if (ROUPA_FEMININA.equals(roupa.getCategoria())) {
-					roupasFiltradas.add(roupa);
-				}
-			} else if (codigo == 2) {
-				if (ROUPA_INFANTIL.equals(roupa.getCategoria())) {
-					roupasFiltradas.add(roupa);
-				}
+			if (codigos.contains(roupa.getCodigoCategoria())) {
+				roupasFiltradas.add(roupa);
 			}
 		}
-		
+
 		return roupasFiltradas;
-		
+
 	}
 
 }

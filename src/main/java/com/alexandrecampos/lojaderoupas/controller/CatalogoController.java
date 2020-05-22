@@ -37,10 +37,11 @@ public class CatalogoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String codigoCategoria = request.getParameter("categoria");
+		// Recupera os valores do select do front
+		String[] codigosCategoria = request.getParameterValues("categoria");
 
 		// Envia as roupas do catalogo para o front
-		request.setAttribute("roupas", catalogoBean.getRoupasFiltradas(codigoCategoria));
+		request.setAttribute("roupas", catalogoBean.getRoupasFiltradas(codigosCategoria));
 		request.setAttribute("categorias", CategoriaEnum.values());
 
 		// Envia a pagina jsp na requisicao

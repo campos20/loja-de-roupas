@@ -59,26 +59,30 @@
 								</div>
 							</c:forEach>
 						</div>
-					
-					
+
+
 						<div class="col-6 text-right">
 							<h5>Filtros</h5>
-							
+
 							<form method="post">
-								<div>
-									<select multiple name="categoria">
+								<div class="form-group">
+									<label for="categorias">Categorias</label>
+									<select multiple name="categoria" class="form-control" id="categorias">
 										<c:forEach items="${ categorias }" var="categoria">
 											<option value="${ categoria.codigo }">${ categoria.nome }</option>
 										</c:forEach>
 									</select>
 								</div>
-								<div>
-									<button>Filtrar</button>
+
+								<div class="btn-group">
+									<button class="btn btn-warning" type="reset">Reset</button>
+									<button class="btn btn-primary">Filtrar</button>
 								</div>
+
 							</form>
-						
+
 						</div>
-					
+
 					</div>
 
 				</div>

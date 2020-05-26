@@ -1,11 +1,17 @@
 package com.alexandrecampos.lojaderoupas.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.alexandrecampos.lojaderoupas.business.bean.RoupaBean;
 
 /**
  * Servlet implementation class CartController
@@ -14,31 +20,56 @@ import javax.servlet.http.HttpServletResponse;
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public CartController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		// Recupera o httpSession
+		HttpSession session = request.getSession();
+		
+		// Verifica se ja existe um cart e cria um, caso contratio
+		if (session.getAttribute("cart") == null) {
+			// Caso nao exista a lista de compras, cria uma
+			
+			List<RoupaBean> cart = new ArrayList<>();
+			session.setAttribute("cart", cart);
+		}
+		
+		//Recupera a lista de compras
+		List<RoupaBean> cart = (List<RoupaBean>) session.getAttribute("cart");
+		
+		// Envia o cart para o front
+		request.setAttribute("cart", cart);
+		
+		// Soma os valores e enviar para o jsp
+		Float total = 0f;
+		for (RoupaBean roupa : cart) {
+			total += roupa.getPreco();
+		}
+		request.setAttribute("total", total);
+		
 		// Envia a pagina jsp na requisicao
 		request.getRequestDispatcher("/cart.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		// Usuario clicou em remover
+		String indexString = request.getParameter("remover");
+		int index = Integer.parseInt(indexString) - 1; // Count e 1-based
+		
+		// Recupera o cart
+		HttpSession session = request.getSession();
+		List<RoupaBean> cart = (List<RoupaBean>) session.getAttribute("cart");
+		
+		// Remove a roupa do carrinho pelo indice
+		cart.remove(index);
+		
 		doGet(request, response);
 	}
 

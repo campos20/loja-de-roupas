@@ -25,33 +25,38 @@
 					</div>
 				</div>
 				<table class="table table-striped table-bordered table-hover">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<th>Item</th>
-							<th>Preço</th>
-							<th>Imagem</th>
-							<th>Remover</th>
+							<th class="text-center">Item</th>
+							<th class="text-center">Preço</th>
+							<th class="text-center">Imagem</th>
+							<th class="text-center" />
 						</tr>
 					</thead>
 
 					<tbody>
-						<c:forEach items="${ cart }" var="item">
+						<c:forEach items="${ cart }" var="item" varStatus="index">
 							<tr>
-								<td class="align-middle">${ item.nome }</td>
-								<td class="align-middle"><fmt:formatNumber
+								<td class="align-middle text-center">${ item.nome }</td>
+								<td class="align-middle text-center"><fmt:formatNumber
 										value="${ item.preco }" type="currency" currencySymbol="R$" /></td>
 								<td class="text-center"><img class="img-thumbnail"
 									style="width: 10vw; height: auto;"
 									src="assets/img/catalogo/${ item.nomeImagem }"></td>
-								<td class="align-middle"><button class="btn btn-danger">Remover</button></td>
+								<td class="align-middle text-center"><form method="post">
+										<button class="btn btn-danger" value="${ index.count }"
+											name="codigo">Remover</button>
+									</form></td>
 							</tr>
 						</c:forEach>
 					</tbody>
-					<tfoot>
+					<tfoot class="bg-secondary text-white">
 						<tr>
-							<td />
-							<td><fmt:formatNumber value="${ total }" type="currency"
-									currencySymbol="R$" /></td>
+							<th>Total</th>
+							<th class="text-center"><fmt:formatNumber value="${ total }"
+									type="currency" currencySymbol="R$" /></th>
+							<th />
+							<th />
 						</tr>
 					</tfoot>
 

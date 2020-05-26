@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -66,7 +67,14 @@ public class CartController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		List<RoupaBean> cart = (List<RoupaBean>) session.getAttribute("cart");
+		
+		Optional.ofNullable(request.getParameter("codigo")).ifPresent(codigo -> {
+			int index = Integer.parseInt(codigo) - 1;
+			cart.remove(index);
+		});
+		
 		doGet(request, response);
 	}
 

@@ -26,37 +26,37 @@
 					<div class="row">
 						<div class="col-6">
 							<c:forEach items="${ roupas }" var="roupa">
-								<div class="card">
-									<div class="card-header">
-										<h5>${ roupa.nome }</h5>
-									</div>
+								<form method="post">
+									<div class="card">
+										<div class="card-header">
+											<h5>${ roupa.nome }</h5>
+										</div>
 
-									<div class="card-body">
+										<div class="card-body">
 
-										<img class="card-img"
-											src="assets/img/catalogo/${ roupa.nomeImagem }">
+											<img class="card-img"
+												src="assets/img/catalogo/${ roupa.nomeImagem }">
 
-										<div class="card-title text-center mt-4">
-											<div class="badge badge-dark badge-pill">
-												<h5>
-													<fmt:formatNumber value="${ roupa.preco }" type="currency"
-														currencySymbol="R$" />
-												</h5>
+											<div class="card-title text-center mt-4">
+												<div class="badge badge-dark badge-pill">
+													<h5>
+														<fmt:formatNumber value="${ roupa.preco }" type="currency"
+															currencySymbol="R$" />
+													</h5>
+												</div>
+											</div>
+
+										</div>
+
+										<div class="card-footer text-center">
+											<div class="btn-group">
+												<button type="submit" name="adicionar" value="${ roupa.codigo }" class="btn btn-primary">Adicionar</button>
+												<a class="btn btn-info" href="#">Detalhes</a>
 											</div>
 										</div>
 
 									</div>
-
-									<div class="card-footer text-center">
-										<div class="btn-group">
-											<button class="btn btn-primary">Adicionar</button>
-											<a class="btn btn-info" href="#">Detalhes</a>
-										</div>
-									</div>
-
-
-
-								</div>
+								</form>
 							</c:forEach>
 						</div>
 
@@ -64,10 +64,10 @@
 						<div class="col-6 text-right">
 							<h5>Filtros</h5>
 
-							<form method="post">
+							<form method="get">
 								<div class="form-group">
-									<label for="categorias">Categorias</label>
-									<select multiple name="categoria" class="form-control" id="categorias">
+									<label for="categorias">Categorias</label> <select multiple
+										name="categoria" class="form-control" id="categorias">
 										<c:forEach items="${ categorias }" var="categoria">
 											<option value="${ categoria.codigo }">${ categoria.nome }</option>
 										</c:forEach>

@@ -8,6 +8,7 @@
 		<ul class="list-unstyled">
 			<li><a class="btn btn-dark btn-block m-1" href=" <c:url value="/" /> ">Principal</a></li>
 			<li><a class="btn btn-dark btn-block m-1" href=" <c:url value="/catalogo" /> ">Catálogo</a></li>
+			<li><a class="btn btn-dark btn-block m-1" href=" <c:url value="/cart" /> ">Carrinho</a></li>
 		</ul>
 	</nav>
 </div>

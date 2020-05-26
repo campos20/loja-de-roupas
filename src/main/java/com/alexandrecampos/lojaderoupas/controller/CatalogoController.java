@@ -73,9 +73,7 @@ public class CatalogoController extends HttpServlet {
 			Integer codigo = Integer.parseInt(codigoString);
 			roupas.stream().filter(roupa -> codigo.equals(roupa.getCodigo())).findFirst()
 					.ifPresent(roupa -> cart.add(roupa));
-			System.out.println(codigo);
 		});
-
 	}
 
 	/**

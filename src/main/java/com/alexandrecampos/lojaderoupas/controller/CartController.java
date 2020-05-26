@@ -10,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.alexandrecampos.lojaderoupas.business.bean.RoupaBean;
 
 /**
  * Servlet implementation class CartController
@@ -37,6 +40,23 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		HttpSession session = request.getSession();
+		if (session.getAttribute("cart") == null) {
+
+			List<RoupaBean> cart = new ArrayList<>();
+			session.setAttribute("cart", cart);
+		}
+
+		List<RoupaBean> cart = (List<RoupaBean>) session.getAttribute("cart");
+		request.setAttribute("cart", cart);
+
+		float total = 0;
+		for (RoupaBean roupa : cart) {
+			total += roupa.getPreco();
+		}
+		request.setAttribute("total", total);
+
 		request.getRequestDispatcher("/cart.jsp").forward(request, response);
 	}
 
